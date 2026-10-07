@@ -9,8 +9,8 @@ import {
 
 import useTeachers from "../../../hooks/useTeachers";
 import TeacherStats 
-from "../../../components/teachers/Teacherstats";
- import TeacherFilters from "../../../components/teachers/TeacherFilters";
+from "../../../components/teachers/TeacherStats";
+import TeacherFilters from "../../../components/teachers/TeacherFilters";
 
 import TeacherTable from "../../../components/teachers/TeacherTable";
 
