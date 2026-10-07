@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== GLOBAL DESIGN SYSTEM ===== */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-50 text-gray-800 font-sans antialiased;
+}
+
+/* Typography */
+
+h1 {
+  @apply text-3xl font-bold text-gray-900;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-gray-900;
+}
+
+h3 {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+p {
+  @apply text-sm text-gray-600;
+}
+
+/* Form Controls */
+
+input,
+select,
+textarea {
+  @apply border border-gray-300 rounded-lg px-3 py-2 outline-none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  @apply border-blue-500 ring-2 ring-blue-100;
+}
+
+/* Buttons */
+
+button {
+  @apply transition-colors duration-200;
+}
+
+/* Links */
+
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,0 +1,227 @@
+import {
+  School,
+  User,
+  Hash,
+  Calendar,
+  Award,
+} from "lucide-react";
+
+export default function ResultPrintLayout({ result }) {
+
+  const getGradeColor = (grade) => {
+    switch (grade) {
+      case "A":
+        return "text-green-700 bg-green-100";
+      case "B":
+        return "text-blue-700 bg-blue-100";
+      case "C":
+        return "text-yellow-700 bg-yellow-100";
+      case "D":
+        return "text-orange-700 bg-orange-100";
+      default:
+        return "text-red-700 bg-red-100";
+    }
+  };
+
+  return (
+    <div className="w-full bg-white text-slate-900">
+
+      {/* ================= A4 CONTAINER ================= */}
+      <div className="p-10 max-w-[900px] mx-auto">
+
+        {/* ================= SCHOOL HEADER ================= */}
+        <div className="text-center border-b pb-6">
+
+          <div className="flex items-center justify-center gap-3">
+
+            <School className="text-blue-600" />
+
+            <h1 className="text-2xl font-bold uppercase tracking-wide">
+              SchoolBridge Academy
+            </h1>
+
+          </div>
+
+          <p className="text-sm text-slate-500 mt-1">
+            Student Academic Report Card
+          </p>
+
+        </div>
+
+        {/* ================= STUDENT INFO ================= */}
+        <div className="grid grid-cols-3 gap-6 mt-6">
+
+          {/* LEFT INFO */}
+          <div className="col-span-2 space-y-2 text-sm">
+
+            <Info label="Name" value={result.studentName} />
+            <Info label="Admission No" value={result.admissionNumber} />
+            <Info label="Class" value={result.className} />
+            <Info label="Session" value={result.session} />
+            <Info label="Term" value={result.term} />
+            <Info label="Position" value={result.position || "-"} />
+
+          </div>
+
+          {/* PHOTO */}
+          <div className="flex justify-end">
+
+            <img
+              src={
+                result.studentPassport ||
+                "https://via.placeholder.com/120"
+              }
+              className="w-28 h-28 object-cover rounded-xl border"
+            />
+
+          </div>
+
+        </div>
+
+        {/* ================= SUBJECT TABLE ================= */}
+        <div className="mt-8">
+
+          <table className="w-full border text-sm">
+
+            <thead className="bg-slate-100">
+
+              <tr className="text-left">
+
+                <th className="p-2">Subject</th>
+                <th className="p-2">CA1</th>
+                <th className="p-2">CA2</th>
+                <th className="p-2">CA3</th>
+                <th className="p-2">Exam</th>
+                <th className="p-2">Total</th>
+                <th className="p-2">Grade</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              {result.subjects?.map((sub, i) => (
+
+                <tr key={i} className="border-t">
+
+                  <td className="p-2 font-medium">
+                    {sub.subject}
+                  </td>
+
+                  <td className="p-2 text-center">{sub.ca1}</td>
+                  <td className="p-2 text-center">{sub.ca2}</td>
+                  <td className="p-2 text-center">{sub.ca3}</td>
+                  <td className="p-2 text-center">{sub.exam}</td>
+
+                  <td className="p-2 text-center font-bold">
+                    {sub.total}
+                  </td>
+
+                  <td className="p-2 text-center">
+
+                    <span className={`px-2 py-1 rounded text-xs font-bold ${getGradeColor(sub.grade)}`}>
+                      {sub.grade}
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        {/* ================= SUMMARY ================= */}
+        <div className="grid grid-cols-3 gap-4 mt-6">
+
+          <SummaryCard
+            title="Total Score"
+            value={result.totalScore}
+            color="text-blue-700"
+          />
+
+          <SummaryCard
+            title="Average"
+            value={Number(result.average || 0).toFixed(2)}
+            color="text-green-700"
+          />
+
+          <SummaryCard
+            title="Percentage"
+            value={`${Number(result.percentage || 0).toFixed(2)}%`}
+            color="text-purple-700"
+          />
+
+        </div>
+
+        {/* ================= REMARKS ================= */}
+        <div className="grid grid-cols-2 gap-4 mt-6">
+
+          <RemarkBox
+            title="Teacher Remark"
+            value={result.teacherRemark}
+          />
+
+          <RemarkBox
+            title="Principal Remark"
+            value={result.principalRemark}
+          />
+
+        </div>
+
+        {/* ================= FOOTER ================= */}
+        <div className="mt-10 text-center text-xs text-slate-400">
+
+          Generated by SchoolBridge SaaS • Confidential Academic Record
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+/* ================= HELPERS ================= */
+
+function Info({ label, value }) {
+  return (
+    <p className="flex gap-2">
+      <span className="font-semibold w-32">{label}:</span>
+      <span>{value || "-"}</span>
+    </p>
+  );
+}
+
+function SummaryCard({ title, value, color }) {
+  return (
+    <div className="border rounded-xl p-4 bg-slate-50">
+
+      <p className="text-sm text-slate-500">{title}</p>
+
+      <h3 className={`text-xl font-bold ${color}`}>
+        {value}
+      </h3>
+
+    </div>
+  );
+}
+
+function RemarkBox({ title, value }) {
+  return (
+    <div className="border rounded-xl p-4">
+
+      <h4 className="font-semibold mb-2">{title}</h4>
+
+      <p className="text-sm text-slate-600">
+        {value || "No remark"}
+      </p>
+
+    </div>
+  );
+}
